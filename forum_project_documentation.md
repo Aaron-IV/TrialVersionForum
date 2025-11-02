@@ -117,38 +117,43 @@
 
 ## 3. Структура проекта (файлы и папки)
 
-Предлагаемая структура — простая и понятная новичку:
-
-```
 forum/
-├─ cmd/
-│  └─ server/
-│     └─ main.go          # точка входа
-├─ internal/
-│  ├─ db/
-│  │  ├─ migrations.sql
-│  │  └─ db.go            # InitDB, функции для миграций
-│  ├─ models/
-│  │  └─ models.go        # структуры Go: User, Post, Comment, Category, Session, Like
-│  ├─ repository/
-│  │  └─ sqlite.go        # методы для работы с БД (CRUD)
-│  ├─ handlers/
-│  │  └─ auth.go          # регистрация, вход, выход
-│  │  └─ posts.go         # CRUD постов
-│  │  └─ comments.go
-│  │  └─ likes.go
-│  ├─ middleware/
-│  │  └─ auth_mw.go       # проверка сессии
-│  └─ templates/
-│     └─ *.html
-├─ static/
-│  └─ css/, js/, images/
-├─ tests/
-│  └─ *_test.go
-├─ Dockerfile
-├─ docker-compose.yml
-├─ go.mod
-├─ README.md
+│
+├── cmd/
+│   └── main.go               # Точка входа в приложение
+│
+├── internal/
+│   ├── handlers/             # HTTP-обработчики (контроллеры)
+│   │   ├── home.go
+│   │   ├── auth.go
+│   │   └── posts.go
+│   │
+│   ├── templates/            # HTML шаблоны
+│   │   ├── layout.html
+│   │   ├── home.html
+│   │   ├── login.html
+│   │   ├── register.html
+│   │   └── post.html
+│   │
+│   ├── static/               # Статические файлы (CSS, JS, изображения)
+│   │   ├── css/
+│   │   │   └── style.css
+│   │   ├── js/
+│   │   │   └── main.js
+│   │   └── img/
+│   │       └── logo.png
+│   │
+│   └── utils/                # Утилиты (например, логирование)
+│       └── logger.go
+│
+├── db/
+│   ├── migrations.sql        # SQL-миграции для базы данных
+│   └── initdb.go             # Инициализация базы
+│
+├── docker-compose.yml        # Подключение Docker
+├── Dockerfile                # Образ Go-приложения
+└── README.md
+
 └─ Forum_Project_Documentation.md  # этот документ
 ```
 
