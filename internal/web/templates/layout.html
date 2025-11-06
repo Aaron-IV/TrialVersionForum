@@ -1,34 +1,29 @@
-<!-- web/templates/layout.html -->
+{{define "layout"}}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-     <meta charset="UTF-8">
-    <title>Forum</title>
+    <meta charset="UTF-8">
+    <title>{{template "title" .}}</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
     <header>
-        <h1>Forum</h1>
+        <h1>Go Forum</h1>
         <nav>
-            <a href="/">Главная</a>
-            {{ if .User }}
-                <a href="/create">Создать пост</a>
-                <a href="/filter">Фильтры</a>
-                <a href="/logout">Выход ({{ .User.Username }})</a>
-            {{ else }}
-                <a href="/login">Войти</a>
-                <a href="/register">Регистрация</a>
-            {{ end }}
+            <a href="/">Главная</a> |
+            <a href="/create">Создать пост</a> |
+            <a href="/login">Вход</a> |
+            <a href="/register">Регистрация</a>
         </nav>
     </header>
 
     <main>
-        {{ template "content" . }}
+        {{template "content" .}}
     </main>
 
     <footer>
-        <p>© 2025 Forum</p>
+        <p>© 2025 Go Forum</p>
     </footer>
-
 </body>
 </html>
+{{end}}
