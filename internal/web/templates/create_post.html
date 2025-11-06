@@ -1,0 +1,21 @@
+{{ define "content" }}
+<h2>Создать новый пост</h2>
+<form method="POST" action="/create">
+    <label>Заголовок:</label>
+    <input type="text" name="title" required>
+
+    <label>Содержание:</label>
+    <textarea name="content" required></textarea>
+
+    <label>Категории:</label>
+    <div class="categories">
+        {{ range .Categories }}
+            <label>
+                <input type="checkbox" name="categories" value="{{ .ID }}"> {{ .Name }}
+            </label>
+        {{ end }}
+    </div>
+
+    <button type="submit">Опубликовать</button>
+</form>
+{{ end }}

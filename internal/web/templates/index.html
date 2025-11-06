@@ -1,0 +1,23 @@
+<!-- web/templates/index.html -->
+{{ define "content" }}
+<h2>Последние посты</h2>
+
+<div class="post-list">
+    {{ range .Posts }}
+    <article class="post">
+        <h3><a href="/post/{{ .ID }}">{{ .Title }}</a></h3>
+        <p>{{ .Content }}</p>
+        <div class="meta">
+            <span>Автор: {{ .Author }}</span> |
+            <span>Категории: {{ range .Categories }}{{ . }} {{ end }}</span>
+        </div>
+        <div class="actions">
+            <button class="like">👍 {{ .Likes }}</button>
+            <button class="dislike">👎 {{ .Dislikes }}</button>
+        </div>
+    </article>
+    {{ else }}
+    <p>Постов пока нет.</p>
+    {{ end }}
+</div>
+{{ end }}

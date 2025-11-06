@@ -1,0 +1,32 @@
+{{ define "content" }}
+<article>
+    <h2>{{ .Post.Title }}</h2>
+    <p>{{ .Post.Content }}</p>
+    <p><strong>Автор:</strong> {{ .Post.Author }}</p>
+
+    <div class="actions">
+        <button>👍 {{ .Post.Likes }}</button>
+        <button>👎 {{ .Post.Dislikes }}</button>
+    </div>
+</article>
+
+<section class="comments">
+    <h3>Комментарии</h3>
+    {{ range .Comments }}
+        <div class="comment">
+            <p><strong>{{ .Author }}:</strong> {{ .Content }}</p>
+        </div>
+    {{ else }}
+        <p>Комментариев пока нет.</p>
+    {{ end }}
+
+    {{ if .User }}
+    <form method="POST" action="/post/{{ .Post.ID }}/comment">
+        <textarea name="content" required placeholder="Добавить комментарий..."></textarea>
+        <button type="submit">Отправить</button>
+    </form>
+    {{ else }}
+    <p>Чтобы оставить комментарий, <a href="/login">войдите</a>.</p>
+    {{ end }}
+</section>
+{{ end }}
