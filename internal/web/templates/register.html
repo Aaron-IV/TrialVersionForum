@@ -1,16 +1,19 @@
+<!-- internal/web/templates/register.html -->
 {{ define "content" }}
 <h2>Регистрация</h2>
-<form method="POST" action="/register">
-    <label>Имя пользователя:</label>
-    <input type="text" name="username" required>
 
-    <label>Email:</label>
-    <input type="email" name="email" required>
+<form action="/register" method="POST" class="form">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
 
-    <label>Пароль:</label>
-    <input type="password" name="password" required>
+    <label for="username">Имя пользователя:</label>
+    <input type="text" id="username" name="username" required>
 
-    <button type="submit">Создать аккаунт</button>
+    <label for="password">Пароль:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit" class="btn-primary">Создать аккаунт</button>
 </form>
-{{ if .Error }}<p class="error">{{ .Error }}</p>{{ end }}
+
+<p class="link">Уже есть аккаунт? <a href="/login">Войти</a></p>
 {{ end }}

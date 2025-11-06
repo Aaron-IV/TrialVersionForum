@@ -12,70 +12,69 @@ import (
 var templates *template.Template
 
 func main() {
-	// Загружаем все HTML шаблоны из internal/web/templates
+	// Загружаем все шаблоны
 	pattern := filepath.Join("internal", "web", "templates", "*.html")
 	templates = template.Must(template.ParseGlob(pattern))
 
-	// Настраиваем маршруты
+	// Роуты
 	http.HandleFunc("/", handleIndex)
 	http.HandleFunc("/login", handleLogin)
 	http.HandleFunc("/register", handleRegister)
 	http.HandleFunc("/create", handleCreatePost)
 	http.HandleFunc("/post", handleViewPost)
 
-	// Подключаем статические файлы (CSS, JS, изображения)
+	// Подключаем CSS, JS и т.д.
 	fs := http.FileServer(http.Dir("internal/web/static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	// Запускаем сервер
 	port := ":8080"
-	fmt.Println("✅ Server started on http://localhost" + port)
+	fmt.Println("✅ Сервер запущен на http://localhost" + port)
 	err := http.ListenAndServe(port, nil)
 	if err != nil {
-		log.Fatalf("❌ Server failed to start: %v", err)
+		log.Fatalf("❌ Ошибка запуска: %v", err)
 	}
 }
 
 // ================== HANDLERS ==================
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "index.html", nil)
+	data := map[string]interface{}{
+		"Title": "Форум сообщества",
+		"Posts": []map[string]interface{}{
+			{
+				"ID":         1,
+				"Title":      "Добро пожаловать на форум!",
+				"Content":    "Это ваш первый тестовый пост. Позже вы сможете добавлять собственные.",
+				"Author":     "Admin",
+				"Categories": []string{"Новости", "Объявления"},
+				"Likes":      10,
+				"Dislikes":   2,
+			},
+			{
+				"ID":         2,
+				"Title":      "Начинаем изучать Go!",
+				"Content":    "Форум скоро будет поддерживать создание и редактирование постов.",
+				"Author":     "GoFan",
+				"Categories": []string{"GoLang", "Учеба"},
+				"Likes":      5,
+				"Dislikes":   0,
+			},
+		},
+	}
+
+	renderTemplate(w, "index.html", data)
 }
 
 func handleLogin(w http.ResponseWriter, r *http.Request) {
-	switch r.Method {
-	case "GET":
-		renderTemplate(w, "login.html", nil)
-	case "POST":
-		// Здесь будет логика авторизации (позже)
-		http.Redirect(w, r, "/", http.StatusSeeOther)
-	default:
-		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
-	}
+	renderTemplate(w, "login.html", nil)
 }
 
 func handleRegister(w http.ResponseWriter, r *http.Request) {
-	switch r.Method {
-	case "GET":
-		renderTemplate(w, "register.html", nil)
-	case "POST":
-		// Здесь будет логика регистрации (позже)
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
-	default:
-		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
-	}
+	renderTemplate(w, "register.html", nil)
 }
 
 func handleCreatePost(w http.ResponseWriter, r *http.Request) {
-	switch r.Method {
-	case "GET":
-		renderTemplate(w, "create_post.html", nil)
-	case "POST":
-		// Здесь будет логика создания поста (позже)
-		http.Redirect(w, r, "/", http.StatusSeeOther)
-	default:
-		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
-	}
+	renderTemplate(w, "create_post.html", nil)
 }
 
 func handleViewPost(w http.ResponseWriter, r *http.Request) {
@@ -85,7 +84,19 @@ func handleViewPost(w http.ResponseWriter, r *http.Request) {
 // ================== UTILS ==================
 
 func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
-	err := templates.ExecuteTemplate(w, tmpl, data)
+	// layout.html всегда подключается первым, а потом конкретный шаблон
+	files := []string{
+		filepath.Join("internal", "web", "templates", "layout.html"),
+		filepath.Join("internal", "web", "templates", tmpl),
+	}
+
+	t, err := template.ParseFiles(files...)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err = t.ExecuteTemplate(w, "layout", data)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}

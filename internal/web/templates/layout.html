@@ -1,29 +1,28 @@
-{{define "layout"}}
+{{ define "layout" }}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>{{template "title" .}}</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ .Title }}</title>
+    <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
-    <header>
-        <h1>Go Forum</h1>
-        <nav>
-            <a href="/">Главная</a> |
-            <a href="/create">Создать пост</a> |
-            <a href="/login">Вход</a> |
-            <a href="/register">Регистрация</a>
-        </nav>
+    <header class="navbar">
+        <div class="container">
+            <h1 class="logo"><a href="/">GreenForum</a></h1>
+            <nav>
+                <a href="/">Главная</a>
+                <a href="/create">Создать пост</a>
+                <a href="/login">Вход</a>
+                <a href="/register">Регистрация</a>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        {{template "content" .}}
+    <main class="container content">
+        {{ block "content" . }}{{ end }}
     </main>
-
-    <footer>
-        <p>© 2025 Go Forum</p>
-    </footer>
 </body>
 </html>
-{{end}}
+{{ end }}
