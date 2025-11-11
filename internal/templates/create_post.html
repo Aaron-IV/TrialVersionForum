@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Post</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/forum.css?v=4" rel="stylesheet">
+  </head>
+  <body>
+    <header class="blog-header py-3">
+      <div class="container">
+        <div class="text-center">
+          <a class="blog-header-logo" href="/">Forum</a>
+        </div>
+      </div>
+    </header>
+    
+    <div class="auth-container">
+      <div class="auth-card">
+        <h1 class="auth-title">Create a new post</h1>
+        <form method="POST" action="/create_post">
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="What's on your mind?" required maxlength="256">
+          </div>
+          <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea class="form-control" id="content" name="content" placeholder="Share your thoughts..." rows="6" required maxlength="2500"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Categories</label>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+              {{range .Categories}}
+                <label style="display: flex; align-items: center; background: #f0f0f0; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; transition: all 0.2s ease;">
+                  <input type="checkbox" name="categories" value="{{.ID}}" style="margin-right: 0.5rem;">
+                  {{.Name}}
+                </label>
+              {{end}}
+            </div>
+          </div>
+          <button class="pinterest-btn pinterest-btn-like w-100" type="submit" style="padding: 0.75rem; font-size: 1rem;">Create Post</button>
+        </form>
+      </div>
+    </div>
+    
+    <footer class="blog-footer">
+      <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Back to top</a>
+    </footer>
+  </body>
+</html>

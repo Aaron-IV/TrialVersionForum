@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Error</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/forum.css?v=4" rel="stylesheet">
+  </head>
+  <body>
+    <header class="blog-header py-3">
+      <div class="container">
+        <div class="text-center">
+          <a class="blog-header-logo" href="/">Forum</a>
+        </div>
+      </div>
+    </header>
+    
+    <div class="auth-container">
+      <div class="auth-card">
+        <h1 class="auth-title" style="color: #dc3545;">Oops! Something went wrong</h1>
+        <div style="background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
+          <p style="margin: 0; font-weight: 500;">{{if .Error}}{{.Error}}{{else}}{{.Message}}{{end}}</p>
+        </div>
+        <a href="/" class="pinterest-btn pinterest-btn-like w-100" style="padding: 0.75rem; font-size: 1rem; text-decoration: none; text-align: center; display: block; cursor: pointer;">Back to Home</a>
+      </div>
+    </div>
+    
+    <footer class="blog-footer">
+      <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Back to top</a>
+    </footer>
+  </body>
+</html>
