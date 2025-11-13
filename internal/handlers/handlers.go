@@ -613,6 +613,7 @@ func PostDetailHandler(w http.ResponseWriter, r *http.Request) {
 		catRows.Close()
 	}
 
+	// Загружаем все комментарии с учетом удаленных
 	commentRows, err := database.DB.Query(`
 		SELECT co.id, co.post_id, co.user_id, co.content, co.created_at, u.username,
 			   (SELECT COUNT(*) FROM comment_reactions WHERE comment_id = co.id AND is_like = 1),
@@ -947,7 +948,7 @@ func EditCommentHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, r, "edit_comment.html", TemplateData{User: user, Comment: c, Post: models.Post{ID: postID}})
 }
 
-// DeleteCommentHandler (остается без изменений)
+// DeleteCommentHandler выполняет мягкое удаление комментария
 func DeleteCommentHandler(w http.ResponseWriter, r *http.Request) {
 	// Проверяем метод DELETE (method override уже обработан middleware)
 	if r.Method != http.MethodDelete {

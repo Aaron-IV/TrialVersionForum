@@ -1,5 +1,34 @@
 /* Pinterest-style Forum Design */
 
+/* CSS Variables for theming */
+:root {
+  --bg-primary: #f7f7f7;
+  --bg-secondary: #fff;
+  --bg-tertiary: #f0f0f0;
+  --text-primary: #333;
+  --text-secondary: #767676;
+  --text-tertiary: #555;
+  --border-color: #e1e1e1;
+  --shadow: rgba(0,0,0,0.1);
+  --shadow-hover: rgba(0,0,0,0.15);
+  --accent-color: #e60023;
+  --accent-hover: #ad081b;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --bg-tertiary: #3a3a3a;
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --text-tertiary: #c0c0c0;
+  --border-color: #404040;
+  --shadow: rgba(0,0,0,0.3);
+  --shadow-hover: rgba(0,0,0,0.5);
+  --accent-color: #e60023;
+  --accent-hover: #ff1a3a;
+}
+
 /* Reset and base styles */
 * {
   box-sizing: border-box;
@@ -10,8 +39,9 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background-color: #f7f7f7;
-  color: #333;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body {
@@ -22,37 +52,39 @@ body {
 
 /* Header styles */
 .blog-header {
-  background: #fff;
-  border-bottom: 1px solid #e1e1e1;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 4px var(--shadow);
   position: sticky;
   top: 0;
   z-index: 1000;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .blog-header-logo {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 1.8rem;
   font-weight: 700;
-  color: #e60023 !important;
+  color: var(--accent-color) !important;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .blog-header-logo:hover {
-  color: #ad081b !important;
+  color: var(--accent-hover) !important;
   text-decoration: none;
 }
 
 /* Navigation */
 .nav-scroller {
-  background: #fff;
-  border-bottom: 1px solid #e1e1e1;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
   padding: 0.5rem 0;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .nav-scroller .nav a {
-  color: #767676;
+  color: var(--text-secondary);
   text-decoration: none;
   font-weight: 500;
   padding: 0.5rem 1rem;
@@ -62,8 +94,8 @@ body {
 }
 
 .nav-scroller .nav a:hover {
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
 }
 
 /* Main container */
@@ -84,9 +116,9 @@ body {
 
 .pinterest-card {
   margin-bottom: 0;
-  background: #fff;
+  background: var(--bg-secondary);
   border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px var(--shadow);
   transition: all 0.3s ease;
   overflow: hidden;
   position: relative;
@@ -97,7 +129,7 @@ body {
 
 .pinterest-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 25px var(--shadow-hover);
 }
 
 .pinterest-card-content {
@@ -114,7 +146,7 @@ body {
 .pinterest-card-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
   margin: 0 0 0.5rem 0;
   line-height: 1.3;
   text-decoration: none;
@@ -130,18 +162,18 @@ body {
 }
 
 .pinterest-card-title:hover {
-  color: #e60023;
+  color: var(--accent-color);
   text-decoration: none;
 }
 
 .pinterest-card-meta {
   font-size: 0.85rem;
-  color: #767676;
+  color: var(--text-secondary);
   margin-bottom: 1rem;
 }
 
 .pinterest-card-content-text {
-  color: #555;
+  color: var(--text-tertiary);
   line-height: 1.5;
   margin-bottom: 1rem;
   font-size: 0.95rem;
@@ -163,8 +195,8 @@ body {
 }
 
 .pinterest-card-categories .badge {
-  background-color: #f0f0f0;
-  color: #767676;
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
   margin-right: 0.25rem;
@@ -175,9 +207,29 @@ body {
 }
 
 .pinterest-card-categories .badge:hover {
-  background-color: #e60023;
+  background-color: var(--accent-color);
   color: #fff;
   text-decoration: none;
+}
+
+/* Filters bar badges */
+.filters-bar .badge {
+  background-color: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.8rem;
+  margin-right: 0.25rem;
+  border-radius: 12px;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  border: none !important;
+}
+
+.filters-bar .badge:hover {
+  background-color: var(--accent-color) !important;
+  color: #fff !important;
+  text-decoration: none !important;
 }
 
 .pinterest-card-actions {
@@ -203,24 +255,24 @@ body {
 }
 
 .pinterest-btn-like {
-  background-color: #e60023;
+  background-color: var(--accent-color);
   color: #fff;
 }
 
 .pinterest-btn-like:hover {
-  background-color: #ad081b;
+  background-color: var(--accent-hover);
   color: #fff;
   text-decoration: none;
 }
 
 .pinterest-btn-dislike {
-  background-color: #f0f0f0;
-  color: #767676;
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
 }
 
 .pinterest-btn-dislike:hover {
-  background-color: #e0e0e0;
-  color: #333;
+  background-color: var(--border-color);
+  color: var(--text-primary);
   text-decoration: none;
 }
 
@@ -251,11 +303,11 @@ body {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  background-color: #e60023;
+  background-color: var(--accent-color);
   color: #fff;
   border: none;
   border-radius: 50px;
-  padding: 1rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(230, 0, 35, 0.3);
@@ -268,7 +320,7 @@ body {
 }
 
 .create-post-btn:hover {
-  background-color: #ad081b;
+  background-color: var(--accent-hover);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(230, 0, 35, 0.4);
   color: #fff;
@@ -277,22 +329,23 @@ body {
 
 /* Sidebar */
 .sidebar {
-  background: #fff;
+  background: var(--bg-secondary);
   border-radius: 16px;
   padding: 1.5rem;
   margin-bottom: 1rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px var(--shadow);
+  transition: background-color 0.3s ease;
 }
 
 .sidebar h4 {
-  color: #333;
+  color: var(--text-primary);
   font-weight: 600;
   margin-bottom: 1rem;
   font-size: 1.1rem;
 }
 
 .sidebar p {
-  color: #767676;
+  color: var(--text-secondary);
   line-height: 1.5;
   margin-bottom: 0;
 }
@@ -306,14 +359,14 @@ body {
 }
 
 .sidebar .list-unstyled a {
-  color: #767676;
+  color: var(--text-secondary);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease;
 }
 
 .sidebar .list-unstyled a:hover {
-  color: #e60023;
+  color: var(--accent-color);
 }
 
 /* Pagination */
@@ -324,8 +377,8 @@ body {
 
 .page-link {
   border: none;
-  color: #767676;
-  background: #fff;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
   border-radius: 8px;
   margin: 0 0.25rem;
   padding: 0.5rem 1rem;
@@ -333,43 +386,61 @@ body {
 }
 
 .page-link:hover {
-  background-color: #e60023;
+  background-color: var(--accent-color);
   color: #fff;
 }
 
 .page-item.active .page-link {
-  background-color: #e60023;
-  border-color: #e60023;
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
 }
 
 .page-item.disabled .page-link {
-  background-color: #f8f9fa;
-  color: #6c757d;
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
 }
 
 /* Footer */
 .blog-footer {
-  background: #fff;
-  border-top: 1px solid #e1e1e1;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
   padding: 2rem 0;
   margin-top: auto;
   text-align: center;
-  color: #767676;
+  color: var(--text-secondary);
   flex-shrink: 0;
   position: relative;
   bottom: 0;
   width: 100%;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .blog-footer a {
-  color: #e60023;
+  color: var(--accent-color);
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
-.blog-footer a:hover {
-  color: #ad081b;
+.blog-footer #back-to-top {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.blog-footer #back-to-top:hover {
+  background-color: var(--accent-color);
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(230, 0, 35, 0.3);
+}
+
+.blog-footer a:hover:not(#back-to-top) {
+  color: var(--accent-hover);
   text-decoration: none;
 }
 
@@ -391,9 +462,12 @@ body {
   }
   
   .create-post-btn {
-    bottom: 1rem;
-    right: 1rem;
-    padding: 0.75rem 1.25rem;
+    padding: 0.65rem 1.25rem;
+    font-size: 0.9rem;
+  }
+  
+  .blog-footer #back-to-top {
+    padding: 0.65rem 1.25rem;
     font-size: 0.9rem;
   }
   
@@ -425,17 +499,18 @@ body {
 }
 
 .post-detail-card {
-  background: #fff;
+  background: var(--bg-secondary);
   border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px var(--shadow);
   padding: 2rem;
   margin-bottom: 2rem;
+  transition: background-color 0.3s ease;
 }
 
 .post-detail-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 1rem;
   line-height: 1.2;
   word-break: break-word;
@@ -445,13 +520,13 @@ body {
 }
 
 .post-detail-meta {
-  color: #767676;
+  color: var(--text-secondary);
   margin-bottom: 1rem;
   font-size: 0.95rem;
 }
 
 .post-detail-content {
-  color: #555;
+  color: var(--text-tertiary);
   line-height: 1.6;
   font-size: 1.1rem;
   margin-bottom: 2rem;
@@ -477,34 +552,36 @@ body {
 
 /* Comments section */
 .comments-section {
-  background: #fff;
+  background: var(--bg-secondary);
   border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px var(--shadow);
   padding: 2rem;
+  transition: background-color 0.3s ease;
 }
 
 .comment-card {
-  background: #f8f9fa;
+  background: var(--bg-tertiary);
   border-radius: 12px;
   padding: 1rem;
   margin-bottom: 1rem;
-  border-left: 4px solid #e60023;
+  border-left: 4px solid var(--accent-color);
+  transition: background-color 0.3s ease;
 }
 
 .comment-author {
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
 .comment-date {
-  color: #767676;
+  color: var(--text-secondary);
   font-size: 0.85rem;
   margin-bottom: 0.5rem;
 }
 
 .comment-content {
-  color: #555;
+  color: var(--text-tertiary);
   line-height: 1.5;
   margin-bottom: 0.75rem;
   white-space: pre-wrap;
@@ -516,28 +593,32 @@ body {
 
 /* Preserve whitespace and line breaks in full post content */
 .blog-post-content {
-  color: #555;
+  color: var(--text-tertiary);
   line-height: 1.6;
   white-space: pre-wrap;
 }
 
 /* Form styles */
 .form-control {
-  border: 2px solid #e1e1e1;
+  border: 2px solid var(--border-color);
   border-radius: 12px;
   padding: 0.75rem 1rem;
   font-size: 0.95rem;
   transition: border-color 0.2s ease;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .form-control:focus {
-  border-color: #e60023;
+  border-color: var(--accent-color);
   box-shadow: 0 0 0 0.2rem rgba(230, 0, 35, 0.25);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .form-label {
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
@@ -549,15 +630,16 @@ body {
 }
 
 .auth-card {
-  background: #fff;
+  background: var(--bg-secondary);
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px var(--shadow);
   padding: 2rem;
+  transition: background-color 0.3s ease;
 }
 
 .auth-title {
   text-align: center;
-  color: #333;
+  color: var(--text-primary);
   font-weight: 700;
   margin-bottom: 2rem;
   font-size: 1.5rem;
@@ -619,14 +701,71 @@ a[href="/logout"].btn:hover {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--bg-tertiary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #e60023;
+  background: var(--accent-color);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #ad081b;
+  background: var(--accent-hover);
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.theme-toggle:hover {
+  background: var(--bg-secondary);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.theme-toggle-icon {
+  font-size: 1.1rem;
+}
+
+/* Bootstrap overrides for dark theme */
+[data-theme="dark"] .alert-danger {
+  background-color: #3d1f1f !important;
+  color: #ff6b6b !important;
+  border-color: #5a2a2a !important;
+}
+
+[data-theme="dark"] .alert-success {
+  background-color: #1f3d1f !important;
+  color: #6bff6b !important;
+  border-color: #2a5a2a !important;
+}
+
+[data-theme="dark"] .alert-info {
+  background-color: #1f2f3d !important;
+  color: #6bb5ff !important;
+  border-color: #2a3f5a !important;
+}
+
+[data-theme="dark"] .btn-outline-secondary {
+  border-color: var(--border-color) !important;
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .btn-outline-secondary:hover {
+  background-color: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
 }
